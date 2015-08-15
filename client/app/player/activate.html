@@ -1,0 +1,15 @@
+<div class="container" ng-controller="PlayerActivateCtrl">
+  <form name="playerForm" novalidate>
+
+    <div class="form_box">
+      <div>
+        <label for="templateName">Name: </label>&nbsp;
+        <input name="name" class="margin-right-20" required type="text" ng-model="data.name"/>
+        <label for="templateCode">Activation Code:</label>&nbsp;
+        <input name="code" type="text" required ng-maxlength="5" ng-minlength="5" ng-model="data.code"/>
+        <i class="fa fa-check-circle" ng-click="activate()"></i>
+      </div>
+    </div>
+
+  </form>
+</div>

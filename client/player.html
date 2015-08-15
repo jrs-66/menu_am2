@@ -1,0 +1,45 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Menu Player</title>
+
+    <meta name="viewport" content="width=device-width">
+
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="app/app.css">
+      <!-- injector:css -->
+      <!-- endinjector -->
+    <!-- endbuild -->
+
+  </head>
+  <body ng-app="playerApp" ng-controller="PlayerCtrl">
+
+    <section ui-view></section>
+
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+  <!-- build:js({client,node_modules}) app/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
+    <!-- endbower -->
+  <!-- endbuild -->
+
+    <!-- build:js({.tmp,client}) app/app.js -->
+
+      <script src="app/app.js"></script>
+      <script src="scripts/services/config.js"></script>
+      <script src="scripts/services/rest.js"></script>
+      <!-- injector:js -->
+      <script src="app/main/main.js"></script>
+      <script src="app/templates/player.controller.js"></script>
+      <!-- endinjector -->
+    <!-- endbuild -->
+</body>
+</html>

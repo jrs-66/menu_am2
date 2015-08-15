@@ -1,0 +1,22 @@
+<div class="container" ng-controller="TemplateAddCtrl">
+    <form novalidate="novalidate" ng-submit="addTemplate()">
+
+      <div class="form_box">
+        <div>
+          <label for="inputTemplateName">Template Name:</label>&nbsp;
+          <input name="name" class="margin-right-20 width-300" id="inputTemplateName" type="text" ng-model="data.name"/>
+        </div>
+        <div>
+          <label class="control-label" for="templateHTML">HTML:</label>
+          <div>
+            <textarea name="HTML" class="styled" id="templateHTML" ng-model="data.HTML">
+            </textarea>
+          </div>
+        </div>
+        <div>
+          <i class="right fa fa-check-circle" style="margin-right:20px" ng-click="addTemplate()"></i>
+          <div class="clear_both"></div>
+        </div>
+      </div>
+    </form>
+</div>

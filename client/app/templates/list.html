@@ -1,0 +1,15 @@
+
+<ul>
+  <li class='player_list'>
+    <div class="right margin-right-20"><div id="temp_toggle" ng-click="add()" js-toggle data='data'><div class="left margin-right-20">Add Template</div> <i class="fa fa-plus-circle"></i></div></div>&nbsp;
+    <div ></div>
+  </li>
+  <li class='player_list' style="padding-bottom:0;padding-top:0" ng-slide-down="data.widgetExpanded" duration="0.3">
+    <div ng-include="'app/templates/add.html'"></div>
+  </li>
+
+  <li class='player_list' ng-repeat="template in data.templates">
+    <a class="right margin-right-20" href="" ng-click="remove(template)"><i class="red fa fa-times"></i></a>
+    <a href="" ng-click="build(template._id)">{{template.name}}</a>
+  </li>
+</ul>

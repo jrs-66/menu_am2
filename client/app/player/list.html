@@ -1,0 +1,27 @@
+
+<ul ng-if="data.players.length">
+  <li class='player_list'>
+    <div class="right margin-right-20"><div id="toggle" ng-click="activate()" js-toggle data='data'><div class="left margin-right-20">Activate</div> <i class="fa fa-plus-circle"></i></div></div>&nbsp;
+    <div ></div>
+  </li>
+
+  <li class='player_list' style="padding-bottom:0;padding-top:0" ng-slide-down="data.widgetExpanded" duration="0.3">
+    <div ng-include="'app/player/activate.html'"></div>
+  </li>
+
+  <li class='player_list' ng-repeat="player in data.players | orderBy:'name'">
+
+    <div class="left fifty small_font">{{ player.name }}</div>
+
+    <a class="right margin-right-20" href="" ng-click="remove(player)"><i class="red fa fa-times"></i></a>
+    <form class="right margin-right-20" novalidate="novalidate">
+      <select ng-model="player.template_id" ng-change="selectTemplate(player)">
+        <option ng-repeat="template in template_list | orderBy:'name'" ng-selected="template._id==player.template_id" value="{{ template._id }}">{{ template.name}}</option>
+      </select>
+    </form>
+    &nbsp;
+  </li>
+</ul>
+<div ng-if="!data.players.length">
+  You have no activated players.  <a href="/player/activate/">Activate one now</a>.
+</div>
