@@ -7,6 +7,11 @@
 var errors = require('./components/errors');
 
 module.exports = function(app) {
+   //app.use(function (err, req, res, next) {
+   //	if (err) console.log(err);
+   //  res.setHeader('Access-Control-Allow-Origin', 'localhost');
+   //  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+   //});
 
    app.use('/api/templates', require('./api/templates'));
    app.use('/api/players', require('./api/players'));

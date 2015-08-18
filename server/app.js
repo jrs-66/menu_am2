@@ -34,6 +34,14 @@ app.use(function(req,res,next){
   next();
 });
 
+   app.use(function (req, res, next) {
+        //if (err) console.log(err);
+     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+     next();
+   });
+
 //var router = require('socket.io-events')();
 
 var sio = require('socket.io')(server);

@@ -13,14 +13,14 @@ exports.activate = function(req, res, next) {
   var form = req.body;
   var collection = req.db.get('players');
 
-  collection.findOne({activation_code: form.code}, function(err, document){
+  collection.findOne({activation_code: form.code.toUpperCase() }, function(err, document){
     if (err || !document) {
       req.io.sockets.emit('message', {'message': "Player not found!"});
       return res.send('not found');
     }
 
     collection.update(
-      { activation_code : form.code },
+      { activation_code : form.code.toUpperCase() },
       { $unset: { activation_code : 1 },
       $set: {name: form.name, merchant_id: 'my_id'} },
       function(err, result) {
@@ -60,6 +60,28 @@ exports.delete = function(req, res, next) {
 
     res.send("success");
   });
+}
+
+exports.update = function(req, res, next) {
+  var form = req.body;
+  var collection = req.db.get('players');
+
+  if (form._id) {
+    collection.update(
+      { _id : form._id },
+      {$set: {name: form.name, template_id: form.template_id}},
+      function(err, count) {
+        if (err) return next(err);
+        if (count) {
+          req.io.sockets.emit('player', {'update': count});
+          req.io.sockets.emit('template_change', {template_id: form.template_id});
+  
+          req.io.sockets.emit('message', {'message': "Player has been updated."});
+        }
+        res.send(form);
+      }
+    );
+  };
 }
 
 exports.template_assign = function(req, res, next) {

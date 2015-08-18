@@ -6,6 +6,7 @@ var router = express.Router();
 var controller = require('./players.controller');
 
 router.post('/', controller.activate);
+router.put('/', controller.update);
 router.delete('/:id', controller.delete);
 router.get('/', controller.list);
 router.post('/template', controller.template_assign);
