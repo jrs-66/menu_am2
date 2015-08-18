@@ -67,16 +67,20 @@ exports.update = function(req, res, next) {
   var collection = req.db.get('players');
 
   if (form._id) {
+    var player_id = form._id;
     collection.update(
-      { _id : form._id },
+      { _id : player_id },
       {$set: {name: form.name, template_id: form.template_id}},
       function(err, count) {
         if (err) return next(err);
         if (count) {
-          req.io.sockets.emit('player', {'update': count});
-          req.io.sockets.emit('template_change', {template_id: form.template_id});
-  
-          req.io.sockets.emit('message', {'message': "Player has been updated."});
+          var collection = req.db.get('templates');
+          collection.findOne({_id: form.template_id}, function(err, document) {
+            req.io.sockets.emit('player_' + player_id , {player_id: player_id, update: count});
+            req.io.sockets.emit('template_change_' + player_id, {player_id: player_id, template: document});
+            req.io.sockets.emit('message', {message: "Player has been updated."});
+          });
+
         }
         res.send(form);
       }
