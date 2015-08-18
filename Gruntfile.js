@@ -18,6 +18,7 @@ module.exports = function (grunt) {
     injector: 'grunt-asset-injector',
     buildcontrol: 'grunt-build-control'
   });
+grunt.loadNpmTasks('grunt-forever');
 
   // grunt replace is used for angular constant configutation
   grunt.loadNpmTasks('grunt-replace');
@@ -35,6 +36,14 @@ module.exports = function (grunt) {
       client: require('./bower.json').appPath || 'client',
       dist: 'dist'
     },
+forever: {
+  serverfront: {
+    options: {
+      index: 'server/app.js',
+      logDir: 'logs'
+    }
+  }
+},
     express: {
       options: {
         port: process.env.PORT || 9000
