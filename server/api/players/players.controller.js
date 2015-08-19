@@ -74,8 +74,10 @@ exports.update = function(req, res, next) {
       function(err, count) {
         if (err) return next(err);
         if (count) {
+          console.log("player template association changed");
           var collection = req.db.get('templates');
           collection.findOne({_id: form.template_id}, function(err, document) {
+            console.log("found template " + form.template_id + " for player " + player_id);
             req.io.sockets.emit('player_' + player_id , {player_id: player_id, update: count});
             req.io.sockets.emit('template_change_' + player_id, {player_id: player_id, template: document});
             req.io.sockets.emit('message', {message: "Player has been updated."});
