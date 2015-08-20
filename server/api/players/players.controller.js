@@ -55,7 +55,7 @@ exports.delete = function(req, res, next) {
   collection.remove({ _id : playerid }, function(err, result) {
     if (err) return next(err);
 
-    req.io.sockets.emit('player_delete_' + playerid, {'_id': playerid});
+    req.io.sockets.emit('player_delete', {'_id': playerid});
     req.io.sockets.emit('message', {'message': "Player has been removed."});
 
     res.send("success");
