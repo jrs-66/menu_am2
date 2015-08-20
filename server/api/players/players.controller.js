@@ -55,7 +55,7 @@ exports.delete = function(req, res, next) {
   collection.remove({ _id : playerid }, function(err, result) {
     if (err) return next(err);
 
-    req.io.sockets.emit('player_delete', {'_id': playerid});
+    req.io.sockets.emit('player_delete_' + playerid, {'_id': playerid});
     req.io.sockets.emit('message', {'message': "Player has been removed."});
 
     res.send("success");
@@ -99,7 +99,7 @@ exports.template_assign = function(req, res, next) {
   collection.update({_id : playerid}, {$set: {template_id: template_id}}, function(err, count) {
     if (err) return next(err);
 
-    req.io.sockets.emit('template_change', {template_id: template_id});
+    req.io.sockets.emit('template_change_' + playerid, {template_id: template_id});
     req.io.sockets.emit('message', {'message': "Template has been assigned."});
     res.send("update success");
   });
