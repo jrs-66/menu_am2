@@ -45,7 +45,7 @@ exports.add = function(req, res, next) {
     req.io.sockets.emit('message', {'message': "Template has been added."});
     // this must be removed soon
     req.io.sockets.emit('template_add', {'template': template});
-    req.io.sockets.emit('socket_event', 'template', {'template': template});
+    req.io.sockets.emit('socket_event', {'type': 'template', 'template': template});
 
     return res.json(template);
   });
