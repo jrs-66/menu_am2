@@ -57,6 +57,7 @@ exports.delete = function(req, res, next) {
 
     req.io.sockets.emit('player_delete', {'_id': playerid});
     req.io.sockets.emit('message', {'message': "Player has been removed."});
+    req.io.sockets.emit('socket_event', {'type': 'player', 'event': 'delete', 'player': {'_id': playerid}});
 
     res.send("success");
   });
