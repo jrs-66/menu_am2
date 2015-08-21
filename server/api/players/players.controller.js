@@ -26,10 +26,11 @@ exports.activate = function(req, res, next) {
       function(err, result) {
         if (err) return next(err);
 
+        document.name = form.name;
         req.io.sockets.emit('activation_' + document._id, {'activation': 'success'});
         req.io.sockets.emit('message', {'message': "Player added!"});
-
-        document.name = form.name;
+        req.io.sockets.emit('socket_event', {'type': 'player', 'event': 'add', 'player': document});
+    
         res.send(document);
       }
     );
