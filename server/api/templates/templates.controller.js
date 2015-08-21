@@ -59,6 +59,7 @@ exports.delete = function(req, res, next) {
     if (err) return next(err);
     req.io.sockets.emit('message', {'message': "Template has been removed."});
     req.io.sockets.emit('template_delete', {'_id': templateid});
+    req.io.sockets.emit('socket_event', {'type': 'template', 'event': 'delete', 'template': {'_id': templateid}});
     return res.send("success");
   });
 }
