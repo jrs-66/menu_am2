@@ -11,7 +11,7 @@
 exports.list = function(req, res, next) {
   var collection = req.db.get('templates');
   collection.find({},{},function(err, records){
-	
+
     if (err) {
 	console.log(err);
 	return next(err);
@@ -37,14 +37,17 @@ exports.add = function(req, res, next) {
   var collection = req.db.get('templates');
 
   collection.index('name');
-  collection.insert({name: form.name, HTML: form.HTML}, function(err, records) {
+  collection.insert({name: form.name, HTML: form.HTML}, function(err, template) {
     if (err) {
-	console.log(err);
-	return next(err);
+    	console.log(err);
+    	return next(err);
     }
     req.io.sockets.emit('message', {'message': "Template has been added."});
-    req.io.sockets.emit('template_add', {'template': records});
-    return res.json(records);
+    // this must be removed soon
+    req.io.sockets.emit('template_add', {'template': template});
+    req.io.sockets.emit('socket_event', 'template', {'template': template});
+
+    return res.json(template);
   });
 }
 
