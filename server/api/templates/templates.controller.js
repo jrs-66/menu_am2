@@ -43,8 +43,6 @@ exports.add = function(req, res, next) {
     	return next(err);
     }
     req.io.sockets.emit('message', {'message': "Template has been added."});
-    // this must be removed soon
-    req.io.sockets.emit('template_add', {'template': template});
     req.io.sockets.emit('socket_event', {'type': 'template', 'event': 'add', 'template': template});
 
     return res.json(template);
@@ -58,7 +56,6 @@ exports.delete = function(req, res, next) {
   collection.remove({ _id : templateid }, function(err, result) {
     if (err) return next(err);
     req.io.sockets.emit('message', {'message': "Template has been removed."});
-    req.io.sockets.emit('template_delete', {'_id': templateid});
     req.io.sockets.emit('socket_event', {'type': 'template', 'event': 'delete', 'template': {'_id': templateid}});
     return res.send("success");
   });

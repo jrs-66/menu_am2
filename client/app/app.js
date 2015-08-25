@@ -7,7 +7,6 @@ var app = angular.module('menuApp', [
   'ui.router',
   'btford.socket-io',
   'appConstants',
-  'menuApp.services',
   'ng-slide-down',
   'ngFx',
   'ngAnimate'

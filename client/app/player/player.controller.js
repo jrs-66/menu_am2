@@ -24,16 +24,18 @@ angular.module('menuApp')
 
   }])
 
-  .controller('PlayerListCtrl', ['$scope', '$http', 'mySocket', 'configuration', 'TemplateListREST', function($scope, $http, mySocket, configuration, TemplateListREST){
+  .controller('PlayerListCtrl', ['$scope', '$http', 'mySocket', 'configuration', 'TemplateFactory', function($scope, $http, mySocket, configuration, TemplateFactory){
     $scope.data = {
       widgetExpanded: 0,
       formIcon: ['<div class="left margin-right-20">Activate</div> <i class="fa fa-plus-circle"></i>', '<div class="left margin-right-20">Cancel</div> <i class="fa red fa-minus-circle"></i>']
     };
 
     $scope.$parent.headerText = "Players";
-    TemplateListREST.query(function(response) {
-      $scope.template_list = response;
+
+    TemplateFactory.getTemplates().then(function(data) {
+      $scope.templates = data;
     });
+
     $http.get('/api/players').success(function(data) {
       $scope.data.players = data;
     })

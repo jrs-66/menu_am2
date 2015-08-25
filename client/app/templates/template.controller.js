@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('menuApp')
-  .controller('TemplateListCtrl', ['$scope', 'TemplateFactory', 'TemplateListREST', '$http', 'mySocket', 'configuration', '$window', 'CONSTANT', function($scope, TemplateFactory, TemplateListREST, $http, mySocket, configuration, $window, CONSTANT){
+  .controller('TemplateListCtrl', ['$scope', 'TemplateFactory', '$http', 'configuration', '$window', 'CONSTANT', function($scope, TemplateFactory, $http, configuration, $window, CONSTANT){
 
     $scope.$parent.headerText = "Templates";
     $scope.data = {
@@ -26,7 +26,7 @@ angular.module('menuApp')
     }
 
   }])
-  .controller('TemplateAddCtrl', ['$scope', '$timeout', '$http', 'mySocket', 'configuration', 'TemplateFactory', 'CONSTANT', function($scope, $timeout, $http, mySocket, configuration, TemplateFactory, CONSTANT){
+  .controller('TemplateAddCtrl', ['$scope', '$timeout', '$http', 'configuration', 'TemplateFactory', 'CONSTANT', function($scope, $timeout, $http, configuration, TemplateFactory, CONSTANT){
 
     $scope.data = {};
     $scope.$parent.headerText = "Add a Template";

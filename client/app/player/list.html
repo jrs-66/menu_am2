@@ -16,7 +16,7 @@
     <a class="right margin-right-20" href="" ng-click="remove(player)"><i class="red fa fa-times"></i></a>
     <form class="right margin-right-20" novalidate="novalidate">
       <select ng-model="player.template_id" ng-change="selectTemplate(player)">
-        <option ng-repeat="template in template_list | orderBy:'name'" ng-selected="template._id==player.template_id" value="{{ template._id }}">{{ template.name}}</option>
+        <option ng-repeat="template in templates | orderBy:'name'" ng-selected="template._id==player.template_id" value="{{ template._id }}">{{ template.name}}</option>
       </select>
     </form>
     &nbsp;

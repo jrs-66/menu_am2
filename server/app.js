@@ -66,8 +66,7 @@ sio.on('connection', function(socket){
   socket.on('command', function(data) {
     console.log("emitting type - " + data.type);
     socket.emit(data.type, data);
-  })
-  socket.emit('connectaa', {'message': 'this is my messsgare'});
+  });
 });
 require('./routes')(app);
 
