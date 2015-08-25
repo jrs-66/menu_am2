@@ -100,10 +100,18 @@ exports.template_assign = function(req, res, next) {
   var collection = req.db.get('players');
   collection.update({_id : playerid}, {$set: {template_id: template_id}}, function(err, count) {
     if (err) return next(err);
-    console.log("assigned " + 'template_change_' + playerid);
-    req.io.sockets.emit('template_change_' + playerid, {template_id: template_id});
-    req.io.sockets.emit('message', {'message': "Template has been assigned."});
-    res.send("update success");
+
+    var collection = req.db.get('templates');
+    collection.findOne({_id: template_id}, function(err, document) {
+      console.log("found template " + template_id + " for player " + playerid);
+      req.io.sockets.emit('template_change_' + playerid, {player_id: playerid, template: document});
+      req.io.sockets.emit('message', {message: "Template has been assigned."});
+    });
+
+    //console.log("assigned " + 'template_change_' + playerid);
+    //req.io.sockets.emit('template_change_' + playerid, {template_id: template_id});
+    //req.io.sockets.emit('message', {'message': "Template has been assigned."});
+    //res.send("update success");
   });
 
 }
