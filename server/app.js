@@ -25,7 +25,8 @@ var httpsServer = https.createServer(credentials, app);
 var assert = require('assert');
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('web:web@localhost:27017/menu');
+//var db = monk('web:web@localhost:27017/menu');
+var db = monk('web:web@localhost:6666/menu');
 
 // Make  db accessible to router
 app.use(function(req,res,next){
@@ -34,13 +35,13 @@ app.use(function(req,res,next){
   next();
 });
 
-   app.use(function (req, res, next) {
-        //if (err) console.log(err);
-     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
-     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-     next();
-   });
+ app.use(function (req, res, next) {
+      //if (err) console.log(err);
+   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+   next();
+ });
 
 //var router = require('socket.io-events')();
 

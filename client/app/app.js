@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('menuApp', [
+var app = angular.module('menuApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -12,6 +12,9 @@ angular.module('menuApp', [
   'ngFx',
   'ngAnimate'
 ])
+.constant('CONSTANT', {
+  API_HOST: ''
+})
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider
     .otherwise('/');

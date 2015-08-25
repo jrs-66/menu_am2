@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('menuApp')
-  .controller('TemplateListCtrl', ['$scope', 'TemplateListREST', '$http', 'mySocket', 'configuration', '$window', function($scope, TemplateListREST, $http, mySocket, configuration, $window){
+  .controller('TemplateListCtrl', ['$scope', 'TemplateFactory', 'TemplateListREST', '$http', 'mySocket', 'configuration', '$window', 'CONSTANT', function($scope, TemplateFactory, TemplateListREST, $http, mySocket, configuration, $window, CONSTANT){
 
     $scope.$parent.headerText = "Templates";
     $scope.data = {
@@ -9,8 +9,8 @@ angular.module('menuApp')
       formIcon: ['<div class="left margin-right-20">Add Template</div> <i class="fa fa-plus-circle"></i>', '<div class="left margin-right-20">Cancel</div> <i class="fa red fa-minus-circle"></i>']
     };
 
-    TemplateListREST.query(function(response) {
-      $scope.data.templates = response;
+    TemplateFactory.getTemplates().then(function(data) {
+      $scope.data.templates = data;
     });
 
     $scope.build = function(id) {
@@ -18,11 +18,7 @@ angular.module('menuApp')
     }
 
     $scope.remove = function(template) {
-      $http.delete('/api/templates/' + template._id).success(function(result){
-        console.log("template deleted")
-      });
-      var idx = $scope.data.templates.indexOf(template);
-      $scope.data.templates.splice(idx,1);
+      TemplateFactory.service.delete({template: template});
     };
 
     $scope.add = function() {
@@ -30,24 +26,21 @@ angular.module('menuApp')
     }
 
   }])
-  .controller('TemplateAddCtrl', ['$scope', '$timeout', '$http', 'mySocket', 'configuration', function($scope, $timeout, $http, mySocket, configuration){
+  .controller('TemplateAddCtrl', ['$scope', '$timeout', '$http', 'mySocket', 'configuration', 'TemplateFactory', 'CONSTANT', function($scope, $timeout, $http, mySocket, configuration, TemplateFactory, CONSTANT){
 
     $scope.data = {};
     $scope.$parent.headerText = "Add a Template";
-    $http.get('/api/templates').success(function(templates) {
-      $scope.data.templates = templates;
-    })
 
     $scope.addTemplate = function() {
-      $http.post('/api/templates', $scope.data).success(function(template){
 
-        $timeout(function() {
-          $scope.$parent.data.templates.push(template);
-          $scope.data = {};
-          $('#temp_toggle').click();
-        }, 0);
-
-      });
+      TemplateFactory.add($scope.data).then(
+        function() {
+          $timeout(function() {
+            $scope.data = {};
+            $('#temp_toggle').click();
+          });
+        }
+      );
     };
 
   }])
