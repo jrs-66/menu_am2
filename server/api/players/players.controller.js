@@ -100,7 +100,7 @@ exports.template_assign = function(req, res, next) {
   var collection = req.db.get('players');
   collection.update({_id : playerid}, {$set: {template_id: template_id}}, function(err, count) {
     if (err) return next(err);
-
+    console.log("assigned " + 'template_change_' + playerid);
     req.io.sockets.emit('template_change_' + playerid, {template_id: template_id});
     req.io.sockets.emit('message', {'message': "Template has been assigned."});
     res.send("update success");
